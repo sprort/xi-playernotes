@@ -1,6 +1,8 @@
 # PlayerNotes
 
-**PlayerNotes** is an Ashita addon for Final Fantasy XI that allows you to record and view notes, ratings, and linkshell details for other players. When you target a player, any saved information is displayed, helping you remember interactions, impressions, and key details about other players.
+**PlayerNotes** is an Ashita addon for Final Fantasy XI that lets you record and view notes, star ratings, and linkshell details for other players. Target someone and their saved information appears automatically, helping you remember interactions, impressions, and who's worth grouping with again.
+
+Originally created by **Fyayu**; substantially extended and maintained by **Sprort**.
 
 ## Features
 - **Two note types**: A short **quick note** shown on the targeting overlay, plus **detailed notes** kept in the config window for deeper info.
@@ -52,16 +54,17 @@ PlayerNotes uses a JSON-based configuration that automatically saves your data, 
 
 ## Screenshots
 
-![Main Interface](https://github.com/SmithDev1237/PlayerNotes/blob/main/img/main_interface.png)  
-*Main interface displaying notes and ratings for targeted players.*
-
-![Advanced Window](https://github.com/SmithDev1237/PlayerNotes/blob/main/img/advanced_window.png)  
-*Advanced window for managing all saved player data.*
+_Screenshots are being refreshed for the current interface._
 
 ## Contributing
 
 Contributions are welcome! Please open an issue or submit a pull request if you have suggestions for improvements.
 
+## Credits
+
+- **Fyayu** — original author of PlayerNotes.
+- **Sprort** — ongoing development: two-tier notes, the master/detail config window, star ratings, chat commands, transparency and layout options, and assorted fixes.
+
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License, as was the original. See the [LICENSE](LICENSE) file for details.

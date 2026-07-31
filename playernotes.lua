@@ -1,7 +1,7 @@
-addon.author = 'Fyayu'
+addon.author = 'Fyayu & Sprort'
 addon.name = 'PlayerNotes'
 addon.version = '2.8'
-addon.desc = 'Allows you to make notes on other players and view them automatically whenever you target someone.'
+addon.desc = 'Keep rated notes on other players, shown automatically whenever you target them.'
 
 require('common')
 local imgui = require('imgui')

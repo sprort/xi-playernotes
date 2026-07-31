@@ -33,11 +33,44 @@ Move the `playernotes` folder into your Ashita `addons` directory:
 Launch Ashita and load the addon using:  
 `/addon load playernotes`
 
+## Interface
+
+### Targeting overlay
+
+A compact, title-less window that appears when you target a player. It shows, centered:
+
+- the player's **name** in an enlarged font,
+- their **star rating** (filled stars in a colour that shifts red → green as the rating climbs),
+- their **linkshell**, if one is recorded,
+- their **quick note**.
+
+The overlay has a fixed width sized to the longest possible character name, so it doesn't
+jump around as you change targets. **Hold Shift to click-and-drag it** to a new position —
+without Shift it stays locked in place so clicks can't nudge it. **Quick Edit** expands an
+inline editor for rating and quick-noting the current target without opening the config window.
+
+### Config window
+
+A resizable master/detail window, opened with the **Config** button or `/pnotes config`:
+
+- **Left — player list.** Every tracked player with their rating, linkshell, last seen, and
+  note-updated time. Click a row to select it. A search box filters by name, note, or
+  linkshell, and the list sorts by name, rating, linkshell, or last seen in either direction.
+- **Right — detail pane.** The selected player's rating, linkshell, timestamps, and both
+  their **quick notes** and **detailed notes**. **Edit** switches the pane into a form for
+  all of those fields; **Delete** removes the player after a confirmation prompt.
+- **Bottom — settings.** Toggle hiding the overlay when nothing is targeted, adjust
+  transparency for the overlay and the config window independently, and add a new player
+  by name.
+
 ## Usage
 
-- **Viewing Notes**: Target any player to see their saved notes, rating, and linkshell information in an ImGui overlay.
-- **Adding Notes**: Click on the "Config" button to open the advanced window where you can add new players or edit existing notes and ratings.
-- **Editing Notes**: Use the "Edit" button next to each player’s name in the advanced window to update notes, ratings, or linkshell information.
+- **Viewing notes**: target any player to see their saved rating, linkshell, and quick note.
+- **Adding a player**: type a name into **Enter New Player** and click **Create**, or target
+  them and use **Quick Edit**. Manually entered names are automatically capitalised to match
+  the form the game uses, so they resolve correctly when you target that player later.
+- **Editing**: select a player in the config window's list, then click **Edit** in the
+  detail pane to change their rating, linkshell, quick note, or detailed notes.
 
 ### Commands
 
@@ -51,10 +84,6 @@ Overlay visibility is saved between sessions. The advanced window also has a **"
 ## Configuration
 
 PlayerNotes uses a JSON-based configuration that automatically saves your data, so notes, ratings, and linkshell details are persistent across sessions.
-
-## Screenshots
-
-_Screenshots are being refreshed for the current interface._
 
 ## Contributing
 

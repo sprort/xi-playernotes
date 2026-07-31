@@ -16,16 +16,20 @@
 
 ## Installation
 
-1. **Download the repository**:
-git clone https://github.com/SmithDev1237/PlayerNotes.git
+1. **Download the repository** — clone into a folder named `playernotes`. Ashita
+requires the addon folder name to match the Lua file (`playernotes/playernotes.lua`),
+so the target folder is given explicitly here since the repository has a different name:
+```
+git clone https://github.com/sprort/xi-playernotes.git playernotes
+```
 
 2. **Place the Addon in the Ashita Addons Folder**:  
-Copy the `PlayerNotes` folder to your Ashita `addons` directory:  
-`Ashita\addons\PlayerNotes`
+Move the `playernotes` folder into your Ashita `addons` directory:  
+`Ashita\addons\playernotes`
 
 3. **Load the Addon**:  
 Launch Ashita and load the addon using:  
-`/addon load PlayerNotes`
+`/addon load playernotes`
 
 ## Usage
 

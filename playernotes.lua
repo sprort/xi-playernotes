@@ -1,6 +1,6 @@
 addon.author = 'Fyayu & Sprort'
 addon.name = 'PlayerNotes'
-addon.version = '3.0.3'
+addon.version = '3.0.0'
 addon.desc = 'Keep rated notes on other players, shown automatically whenever you target them.'
 
 require('common')

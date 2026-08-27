@@ -1,6 +1,6 @@
 addon.author = 'Fyayu & Sprort'
 addon.name = 'PlayerNotes'
-addon.version = '3.0.0'
+addon.version = '3.0.3'
 addon.desc = 'Keep rated notes on other players, shown automatically whenever you target them.'
 
 require('common')
@@ -243,6 +243,26 @@ end)
 -- How much bigger the targeted player's name is drawn than normal text.
 local NAME_SCALE = 1.5
 
+-- True only once a character is actually logged in and loaded into the world.
+-- GetPlayerEntity() alone is not enough: it goes non-nil as soon as the
+-- character-select screen sets up its preview model, which would let the addon
+-- draw over the login screen. Ashita's own settings library solves this the
+-- same way, by also requiring login status 2.
+local function is_logged_in()
+    local ok, status = pcall(function()
+        return AshitaCore:GetMemoryManager():GetPlayer():GetLoginStatus()
+    end)
+    return ok and status == 2 and GetPlayerEntity() ~= nil
+end
+
+-- Cutscenes and other events put the player in server status 4 -- the same
+-- check Ashita's own cleancs addon uses to hide rendered elements. The overlay
+-- stays out of the way while one is playing.
+local function is_in_cutscene()
+    local player = GetPlayerEntity()
+    return player ~= nil and player.StatusServer == 4
+end
+
 -- Inner content width of the overlay, computed once per frame in present_cb.
 -- Centering uses this rather than GetContentRegionAvail(): the overlay is an
 -- auto-resizing window, so measuring its available region while positioning
@@ -360,7 +380,7 @@ local function render_advanced_window()
     local pane_bg = {0.11, 0.11, 0.12, config.config_alpha}
 
     imgui.PushStyleColor(ImGuiCol_ChildBg, pane_bg)
-    imgui.BeginChild("PlayerList", {leftW, paneH}, true)
+    imgui.BeginChild("PlayerList", {leftW, paneH}, (ImGuiChildFlags_Borders or 1), 0)
 
     -- Build the (optionally filtered) player list.
     local q = filter_text[1]:lower()
@@ -427,7 +447,7 @@ local function render_advanced_window()
 
     -- === Right pane: quick + detailed notes / editor for the selected player ===
     imgui.PushStyleColor(ImGuiCol_ChildBg, pane_bg)
-    imgui.BeginChild("PlayerDetail", {rightW, paneH}, true)
+    imgui.BeginChild("PlayerDetail", {rightW, paneH}, (ImGuiChildFlags_Borders or 1), 0)
     if selected_player == "" then
         imgui.TextColored({0.6, 0.6, 0.6, 1.0}, "Select a player from the list")
         imgui.TextColored({0.6, 0.6, 0.6, 1.0}, "to view or edit their notes.")
@@ -569,6 +589,10 @@ local function render_advanced_window()
 end
 
 ashita.events.register('d3d_present', 'present_cb', function()
+    -- Nothing this addon draws or tracks makes sense before a character is in
+    -- the world, so bail out entirely on the login / character-select screens.
+    if not is_logged_in() then return end
+
     local memMgr = AshitaCore:GetMemoryManager()
     local targetMgr = memMgr:GetTarget()
     local target = ""
@@ -603,7 +627,8 @@ ashita.events.register('d3d_present', 'present_cb', function()
         prev_target = target_name
     end
 
-    if config.visible and not (config.hide_without_target and target_name == "") then
+    if config.visible and not is_in_cutscene()
+        and not (config.hide_without_target and target_name == "") then
         imgui.SetNextWindowBgAlpha(config.overlay_alpha)
         -- Pin the overlay to a fixed width that fits the longest possible name
         -- (FFXI names cap at 15 characters), so it doesn't resize as targets
